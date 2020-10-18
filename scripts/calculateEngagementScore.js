@@ -14,9 +14,10 @@ var T = new Twit({
 })
 
 function calculate(){
-  database.findOne({timestamp: {$gt: new Date().getTime() - 86400000}, engagementScore: 'NULL'}, async (err, result) => { //find all tweets older than one day
+  database.find({timestamp: {$gt: new Date().getTime() - 86400000}, engagementScore: 'NULL'}, async (err, result) => { //find all tweets older than one day
     if (err) console.log(`Error calculating engagementScore! Database error: ${err}`)
     else {
+      result = await result.toArray()
       if (result == null) console.log(`No new tweets to calculate engagementScore for.`)
       else {
         for (i in result){
