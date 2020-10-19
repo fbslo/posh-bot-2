@@ -106,7 +106,7 @@ function getHivePostScore(username, permlink){
 async function isValidReplyFunction(author){
   try {
     let isEngageHolder = []
-    var response = await got('https://accounts.hive-engine.com/accountHistory?account='+user)
+    var response = await got('https://accounts.hive-engine.com/accountHistory?account='+author)
     let data = JSON.parse(response.body)
     for (i in data){
       if(data[i].symbol == "ENGAGE"){
