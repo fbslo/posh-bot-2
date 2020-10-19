@@ -3,7 +3,7 @@ const database = mongo.get().db("Posh").collection("tweets")
 
 function calculate(){
   return new Promise((resolve, reject) => {
-    database.find({engagementTime: {$gt: new Date().getTime() - 86400000}, tokens: 'NULL'}, async (err, result) => { //find all tweets that received engagementScore in last day
+    database.find({engagementTime: {$lt: new Date().getTime() - 86400000}, tokens: 'NULL'}, async (err, result) => { //find all tweets that received engagementScore in last day
       if (err) console.log(`Error calculating tokens! Database error: ${err}`)
       else {
         result = result.toArray()
@@ -16,7 +16,7 @@ function calculate(){
           let totalDailyAmountOfTokens = process.env.DAILY_TOKENS
           let tokensPerScore = totalDailyAmountOfTokens / totalEngagementScoreToday
           for (i in result){
-            await updateTweetTokens(result[i].twitterTweetId, parseFloat(tokensPerScore * result[i].engagementScore).toFixed(3))
+            updateTweetTokens(result[i].twitterTweetId, parseFloat(tokensPerScore * result[i].engagementScore).toFixed(3))
             if (i == result.length - 1) resolve({
               tokensPerScore: tokensPerScore,
               tweetsToday: result

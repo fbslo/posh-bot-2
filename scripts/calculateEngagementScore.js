@@ -14,14 +14,14 @@ var T = new Twit({
 })
 
 function calculate(){
-  database.find({timestamp: {$gt: new Date().getTime() - 86400000}, engagementScore: 'NULL'}, async (err, result) => { //find all tweets older than one day
+  database.find({timestamp: {$lt: new Date().getTime() - 86400000}, engagementScore: 'NULL'}, async (err, result) => { //find all tweets older than one day
     if (err) console.log(`Error calculating engagementScore! Database error: ${err}`)
     else {
       result = await result.toArray()
       if (result == null) console.log(`No new tweets to calculate engagementScore for.`)
       else {
         for (i in result){
-          await calculateEngagementScore(result[i])
+          calculateEngagementScore(result[i])
         }
       }
     }
@@ -85,7 +85,7 @@ async function hiveEnagementScoreFunction(hiveLink, hiveUsername){
 
 function getHivePostScore(username, permlink){
   return new Promise((resolve, reject) => {
-    hive.api.getContentReplies(author, permlink, async function(err, result) {
+    hive.api.getContentReplies(username, permlink, async function(err, result) {
       if (err) resolve(0)
       else {
         if (result.length == 0) resolve(0)
