@@ -32,14 +32,14 @@ function tokens(){
         users.push({
           twitterTweetId: "v1-legacy",
           twitterUsername: "v1-legacy",
-          hiveUsername: "v1-legacy",
+          hiveUsername: result[i].hive_username,
           hiveLink: "v1-legacy",
           timestamp: 0,
           created: "v1-legacy",
           engagementScore: "v1-legacy",
           engagementTime: "v1-legacy",
           tokens: result[i].sum,
-          tokensTime: "v1-legacy
+          tokensTime: "v1-legacy"
         })
       }
       users = JSON.stringify(users)
@@ -50,3 +50,5 @@ function tokens(){
    }
   })
 }
+
+tokens()
