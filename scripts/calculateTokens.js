@@ -35,7 +35,7 @@ function updateTweetTokens(twitterTweetId, tokens){
       tokens: tokens
     }
   }, (err, result) => {
-    if (err) console.log(`Error storing engagementScore for tweet ${twitterTweetId}.`)
+    if (err) console.log(`Error storing tokens for tweet ${twitterTweetId}.`)
     else console.log(`Tweet ${twitterTweetId} stored!`)
   })
 }
