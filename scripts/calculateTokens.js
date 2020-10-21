@@ -3,7 +3,7 @@ const database = mongo.get().db("Posh").collection("tweets")
 
 function calculate(){
   return new Promise((resolve, reject) => {
-    database.find({engagementTime: {$lt: new Date().getTime() - 86400000}, tokens: 'NULL'}, async (err, result) => { //find all tweets that received engagementScore in last day
+    database.find({engagementTime: {$gt: new Date().getTime() - 86400000}, tokens: 'NULL'}, async (err, result) => { //find all tweets that received engagementScore in last day
       if (err) console.log(`Error calculating tokens! Database error: ${err}`)
       else {
         result = result.toArray()
