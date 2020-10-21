@@ -11,9 +11,9 @@ async function submit(objectOfData){
   let { tokensPerScore, tweetsToday } = objectOfData
   let today = getDate();
   let title = `Daily PoshToken statistic - ${today}`
-  let body = `Today, we distibuted ${process.env.DAILY_TOKENS} to ${tweetsToday.length} tweets.`
-  body += `\nTweets that received tokens between ${new Date()} and ${new Date()} \n\n|Hive username|Tokens earned today|\n|---|---|\n`
-  body += prepareTable()
+  let body = `Today, we distributed ***${process.env.DAILY_TOKENS}*** tokens to ${tweetsToday.length} tweets.`
+  body += `\n\n|Hive username|Tokens earned today|\n|---|---|\n`
+  body += prepareTable(tweetsToday)
   body += `\n\n<center><h3>Top 25 earners</h3></center>\n\n|Hive username|Tokens earned|\n|---|---|\n`
   body += await prepareRichlist()
   body += `\n\nThis project is supported by witness [@ocd-witness](https://hivesigner.com/sign/account-witness-vote?witness=ocd-witness&approve=1) and developed by witness [@fbslo](https://hivesigner.com/sign/account-witness-vote?witness=fbslo&approve=1).`
@@ -25,6 +25,7 @@ function submitToHive(body, title){
   let jsonMetadata = { app: 'poshtoken/2.0', author: "fbslo" }
   hive.broadcast.comment(process.env.PRIVATE_KEY, '', 'poshtoken', process.env.ACCOUNT, permlink, title, body, jsonMetadata, function(err, result) {
     if (err) console.log(err)
+    else console.log("Daily post submited.")
     //else addCommentOptions(permlink)
   });
 }
@@ -48,6 +49,7 @@ function prepareTable(tweetsToday){
   for (i in tweetsToday){
     body += `|@${tweetsToday[i].hiveUsername}|${tweetsToday[i].tokens}|\n`
   }
+  console.log(body)
   return body;
 }
 
@@ -63,6 +65,7 @@ function prepareRichlist(){
     ]).toArray()
     result = result.slice(0, 25)
     if (result != null){
+      let body = ''
       for (i in result){
         body += `|@${result[i]._id}|${result[i].tokens}|\n`
       }

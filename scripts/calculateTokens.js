@@ -6,7 +6,7 @@ function calculate(){
     database.find({engagementTime: {$gt: new Date().getTime() - 86400000}, tokens: 'NULL'}, async (err, result) => { //find all tweets that received engagementScore in last day
       if (err) console.log(`Error calculating tokens! Database error: ${err}`)
       else {
-        result = result.toArray()
+        result = await result.toArray()
         if (result == null) console.log(`No new tweets to calculate tokens for.`)
         else {
           let totalEngagementScoreToday = 0
@@ -17,6 +17,7 @@ function calculate(){
           let tokensPerScore = totalDailyAmountOfTokens / totalEngagementScoreToday
           for (i in result){
             updateTweetTokens(result[i].twitterTweetId, parseFloat(tokensPerScore * result[i].engagementScore).toFixed(3))
+            result[i].tokens = parseFloat(tokensPerScore * result[i].engagementScore).toFixed(3)
             if (i == result.length - 1) resolve({
               tokensPerScore: tokensPerScore,
               tweetsToday: result
