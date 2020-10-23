@@ -85,21 +85,26 @@ async function hiveEnagementScoreFunction(hiveLink, hiveUsername){
 
 function getHivePostScore(username, permlink){
   return new Promise((resolve, reject) => {
-    hive.api.getContentReplies(username, permlink, async function(err, result) {
-      if (err) resolve(0)
-      else {
-        if (result.length == 0) resolve(0)
+    try {
+      hive.api.getContentReplies(username, permlink, async function(err, result) {
+        if (err) resolve(0)
         else {
-          let validReplies = []
-          for (i in result){
-            let isValidReply = await isValidReplyFunction(result[i].author)
-            if (isValidReply == true) validReplies.push(result[i].author)
+          if (result.length == 0) resolve(0)
+          else {
+            let validReplies = []
+            for (i in result){
+              let isValidReply = await isValidReplyFunction(result[i].author)
+              if (isValidReply == true) validReplies.push(result[i].author)
+            }
+            validReplies = [...new Set(validReplies)];
+            resolve(validReplies.length * 5) //each vvalid comment author * 5
           }
-          validReplies = [...new Set(validReplies)];
-          resolve(validReplies.length * 5) //each vvalid comment author * 5
         }
-      }
-    });
+      });
+    } catch(e){
+      console.log("Error getting hiveEngagementScore: "+err)
+      resolve(0)
+    }
   })
 }
 
