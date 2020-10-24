@@ -35,7 +35,8 @@ function includesLink(urls, callback){
             response.headers.location.includes("peakd") ||
             response.headers.location.includes("hive.blog") ||
             response.headers.location.includes("3speak.online") ||
-            response.headers.location.includes("leofinance.io")
+            response.headers.location.includes("leofinance.io") ||
+            response.headers.location.includes("ecency.com")
           ){
             isValidLink.push(response.headers.location)
           }

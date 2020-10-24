@@ -63,7 +63,11 @@ async function hiveEnagementScoreFunction(hiveLink, hiveUsername){
         } else {
           resolve(0)
         }
-      } else if(hiveLink.includes('hive.blog') || hiveLink.includes('peakd') || hiveLink.includes("leofinance.io")){
+      } else if(hiveLink.includes('hive.blog') ||
+                hiveLink.includes('peakd') ||
+                hiveLink.includes("leofinance.io") ||
+                hiveLink.includes("ecency.com")
+              ){
         //https://url.com/maybe_tag/ @username / permlink?maybe=something
         if(hiveLink.split("@")[1].split("/")[0] == hiveUsername){
           let permlink = hiveLink.split('@')[1].split("/")[1]
