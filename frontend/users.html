@@ -49,13 +49,14 @@
           else {
             let list = ''
             for (i in res.result){
-              list += `<tr><td>${res.result[i].hiveUsername}</td><td>${res.result[i].tokens}</td></tr>`
+              list += `<tr><td>${res.result[i].hiveUsername}</td><td>${res.result[i].twitterUsername}</td><td>${res.result[i].tokens}</td></tr>`
             }
             console.log(list)
             document.getElementById("list").innerHTML = `<table id="table" style="width:100%" class="table table-striped table-bordered">
               <thead>
                 <tr>
                  <th>Hive Username</th>
+                 <th>Twitter Username</th>
                  <th>Earned tokens</th>
                </tr>
               </thead>

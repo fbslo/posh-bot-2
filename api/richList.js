@@ -27,7 +27,7 @@ router.get("/", async (req, res) => {
   var result = [];
   array.reduce(function(res, value) {
     if (!res[value.hiveUsername]) {
-      res[value.hiveUsername] = { hiveUsername: value.hiveUsername, tokens: parseFloat(value.tokens) };
+      res[value.hiveUsername] = { hiveUsername: value.hiveUsername, tokens: parseFloat(value.tokens), twitterUsername: value.twitterUsername };
       result.push(res[value.hiveUsername])
     }
     res[value.hiveUsername].tokens += parseFloat(value.tokens);
