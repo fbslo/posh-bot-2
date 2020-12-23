@@ -14,9 +14,9 @@ async function submit(objectOfData){
   let body = `Today, we distributed ***${process.env.DAILY_TOKENS}*** tokens to ${tweetsToday.length} tweets.`
   body += `\n\n|Hive username|Tokens earned today|\n|---|---|\n`
   body += prepareTable(tweetsToday)
-  //body += `\n\n<center><h3>Top 25 earners</h3></center>\n\n|Hive username|Tokens earned|\n|---|---|\n`
-  //body += await prepareRichlist()
-  body += `\n\nThis project is supported by witness [@ocd-witness](https://hivesigner.com/sign/account-witness-vote?witness=ocd-witness&approve=1) and developed by witness [@fbslo](https://hivesigner.com/sign/account-witness-vote?witness=fbslo&approve=1).`
+  body += `\n\n<center><h3>Top earners</h3>`
+  body += `Visit [PoshToken Website](https://poshtoken.fbslo.net/users)`
+  body += `\n\nThis project is supported by witness [@ocd-witness](https://hivesigner.com/sign/account-witness-vote?witness=ocd-witness&approve=1) and bot is developed by witness [@fbslo](https://hivesigner.com/sign/account-witness-vote?witness=fbslo&approve=1).`
   submitToHive(body, title)
 }
 
