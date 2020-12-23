@@ -8,13 +8,34 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@hiveio/hive-js/dist/hive.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />
+    <script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <title>PoshToken</title>
+    <style>
+    body {
+        min-height: 100vh;
+
+        background-color: #FFE53B;
+        background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 100%);
+      }
+    </style>
   </head>
   <body>
-    <div class="container mt-3">
-      <span id='errors'></span>
-      <div id='list'></div>
+    <div class="container py-5">
+  <div class="row py-5">
+    <div class="col-lg-10 mx-auto">
+      <div class="card rounded shadow border-0">
+        <div class="card-body p-5 bg-white rounded">
+          <div class="table-responsive">
+            <span id='list'>Loading...</span>
+          </div>
+          <p><center><a href='/'>Home Page</a></center></p>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
+
 
     <script>
     function getList(){
@@ -31,13 +52,18 @@
               list += `<tr><td>${res.result[i].hiveUsername}</td><td>${res.result[i].tokens}</td></tr>`
             }
             console.log(list)
-            document.getElementById("list").innerHTML = `<table class="table">
+            document.getElementById("list").innerHTML = `<table id="table" style="width:100%" class="table table-striped table-bordered">
               <thead>
                 <tr>
-                  <th>Hive username</th>
-                  <th>Tokens</th>
-                </tr>
-              </thead><tbody>${list}</tbody></table>`
+                 <th>Hive Username</th>
+                 <th>Earned tokens</th>
+               </tr>
+              </thead>
+              <tbody>
+              ${list}
+              </tbody>
+            </table>`
+            $('#table').DataTable();
           }
         },
         error: function(err){
