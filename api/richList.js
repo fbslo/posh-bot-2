@@ -48,6 +48,16 @@ router.get("/", async (req, res) => {
     if (twitterUsername) obj['twitterUsername'] = twitterUsername.twitterUsername
   })
 
+  let onlyRegistered = registeredUsers.filter(({ hiveUsername: id1 }) => !result.some(({ hiveUsername: id2 }) => id2 === id1));
+
+  onlyRegistered.forEach((res) => {
+    result.push({
+      hiveUsername: res.hiveUsername,
+      twitterUsername: res.twitterUsername,
+      tokens: 0
+    })
+  })
+
   res.json({
     sum: parseFloat(sum).toFixed(3),
     result: result
