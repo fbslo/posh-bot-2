@@ -90,7 +90,7 @@ function storeUserToDB(storeUserToDatabase, hiveReply, registrationData){
   storeUserToDatabase.storeUser(registrationData)
     .then((result) => {
       //user not registered already
-      if (result != undefined) hiveReply.reply(`@${registrationData.hiveUsername}, your were connected to twitter username ${registrationData.twitterUsername}!`, registrationData)
+      if (result != undefined) hiveReply.reply(`@${registrationData.hiveUsername}, you were connected to twitter username ${registrationData.twitterUsername}!`, registrationData)
       //emit event to frontend
       io.emit('user', {hiveUsername: registrationData.hiveUsername, twitterUsername: registrationData.twitterUsername});
     })
