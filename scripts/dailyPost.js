@@ -12,7 +12,7 @@ async function submit(objectOfData){
   let today = getDate();
   let title = `Daily PoshToken statistic - ${today}`
   let body = `Today, we distributed ***${process.env.DAILY_TOKENS}*** tokens to ${tweetsToday.length} tweets.`
-  body += `\n\n|Hive username|Tokens earned today|\n|---|---|\n`
+  body += `\n\n|Hive username|Tokens earned today|Tweet\n|---|---|---|\n`
   body += prepareTable(tweetsToday)
   body += `\n\n<center><h3>Top earners</h3>`
   body += `Visit [PoshToken Website](https://poshtoken.fbslo.net/users)`
@@ -47,7 +47,7 @@ function addCommentOptions(permlink){
 function prepareTable(tweetsToday){
   let body = ''
   for (i in tweetsToday){
-    body += `|@${tweetsToday[i].hiveUsername}|${tweetsToday[i].tokens}|\n`
+    body += `|@${tweetsToday[i].hiveUsername}|${tweetsToday[i].tokens}|[Tweet](https://twitter.com/${tweetsToday[i].twitterUsername}/status/${tweetsToday[i].twitterTweetId})|\n`
   }
   console.log(body)
   return body;

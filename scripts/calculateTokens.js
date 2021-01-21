@@ -20,7 +20,7 @@ function calculate(){
             result[i].tokens = parseFloat(tokensPerScore * result[i].engagementScore).toFixed(3)
             if (i == result.length - 1) resolve({
               tokensPerScore: tokensPerScore,
-              tweetsToday: result
+              tweetsToday: result,
             })
           }
         }
